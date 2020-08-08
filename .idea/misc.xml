@@ -3,12 +3,12 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/../study/design-pattern/pom.xml" />
-        <option value="$PROJECT_DIR$/../study/concurrent/pom.xml" />
+        <option value="$PROJECT_DIR$/design-pattern/pom.xml" />
+        <option value="$PROJECT_DIR$/concurrent/pom.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/../study/out" />
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
