@@ -4,3 +4,10 @@ spring:
     host: 192.168.145.10
     port: 6379
     password: 123456
+    sentinel:
+      master: mymaster
+      nodes: 192.168.145.10:26379,192.168.145.20:26379,192.168.145.30:26379
+      password: 123456
+
+    redisson:
+      config: "classpath:redisson.yml"

@@ -1,8 +1,10 @@
 package com.whw.concurrent;
 
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.Random;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,11 +19,9 @@ public class ExecutorsTest {
 
     private static AtomicInteger aa = new AtomicInteger();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("111111");
-        new Thread(()->{
-            System.out.println("1112222");
-        }).start();
+        new Thread(()-> System.out.println("1112222")).start();
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2,
                 3,
                 2,
@@ -53,7 +53,46 @@ public class ExecutorsTest {
             e.printStackTrace();
         }
         System.out.println(aa.get());
-        Executors.newCachedThreadPool();
+//        Executors.newCachedThreadPool();
 
+        ExecutorService executorService = Executors.newFixedThreadPool(3, new ThreadFactory() {
+
+            private AtomicInteger atomicInteger = new AtomicInteger();
+
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread(r, "myThread-" + atomicInteger);
+            }
+        });
+
+        executorService.execute(() -> {
+            File file = new File("");
+            try {
+                String canonicalPath = file.getCanonicalPath();
+                System.out.println(canonicalPath);
+                System.out.println(file.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+        File file2 = new File("");
+        System.out.println(file2.getCanonicalPath());
+        System.out.println(file2.getAbsolutePath());
+        Class<?> executorsTestClass = ExecutorsTest.class;
+        URL resource = executorsTestClass.getResource("/");
+        System.out.println(resource.getPath());
+        executorService.execute(() -> {
+            String filepath = "C:\\Users\\think\\Desktop\\test\\test.txt";
+
+            File file = new File(filepath);
+
+            try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+                fileOutputStream.write("啊雪儿".getBytes());
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        });
     }
 }
