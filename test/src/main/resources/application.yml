@@ -1,0 +1,7 @@
+message:
+  service:
+    url: http://localhost:9999
+spring:
+  profiles:
+    active: dev
+
